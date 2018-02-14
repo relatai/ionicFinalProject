@@ -2,16 +2,25 @@ import { Component } from '@angular/core';
 
 import { AboutPage } from '../about/about';
 import { ContactPage } from '../contact/contact';
-import { HomePage } from '../home/home';
+import { MapaPage } from '../mapa/mapa';
+import { SobrePage } from '../sobre/sobre';
+import { RelatarProblemaPage } from '../relatar-problema/relatar-problema';
+import { MostrarMeusRelatosPage } from '../mostrar-meus-relatos/mostrar-meus-relatos';
 
 @Component({
   templateUrl: 'tabs.html'
 })
 export class TabsPage {
 
-  tab1Root = HomePage;
-  tab2Root = AboutPage;
-  tab3Root = ContactPage;
+  MapaRoot = MapaPage;
+  relatarProblemaRoot = RelatarProblemaPage;
+  mostrarMeusRelatosRoot = MostrarMeusRelatosPage;
+  SobreRoot = SobrePage
+
+  //MapaRoot = 'MapaPage'
+  //relatarProblemaRoot = 'RelatarProblemaPage'
+  //mostrarMeusRelatosRoot = 'MostrarMeusRelatosPage'
+  //SobreRoot = 'SobrePage'
 
   constructor() {
 

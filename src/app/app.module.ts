@@ -5,19 +5,27 @@ import { MyApp } from './app.component';
 
 import { AboutPage } from '../pages/about/about';
 import { ContactPage } from '../pages/contact/contact';
-import { HomePage } from '../pages/home/home';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
+
+import { GoogleMaps } from '@ionic-native/google-maps';
+import { MapaPage } from '../pages/mapa/mapa';
+import { MostrarMeusRelatosPage } from '../pages/mostrar-meus-relatos/mostrar-meus-relatos';
+import { RelatarProblemaPage } from '../pages/relatar-problema/relatar-problema';
+import { SobrePage } from '../pages/sobre/sobre';
 
 @NgModule({
   declarations: [
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
-    TabsPage
+    TabsPage,
+    MapaPage,
+    MostrarMeusRelatosPage,
+    RelatarProblemaPage,
+    SobrePage
   ],
   imports: [
     BrowserModule,
@@ -28,12 +36,16 @@ import { SplashScreen } from '@ionic-native/splash-screen';
     MyApp,
     AboutPage,
     ContactPage,
-    HomePage,
-    TabsPage
+    TabsPage,
+    MapaPage,
+    MostrarMeusRelatosPage,
+    RelatarProblemaPage,
+    SobrePage
   ],
   providers: [
     StatusBar,
     SplashScreen,
+    GoogleMaps,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

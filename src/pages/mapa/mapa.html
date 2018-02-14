@@ -1,0 +1,16 @@
+<div id="custom-overlay" [style.display]="splash ? 'flex': 'none'">
+  <div class="flb">
+    <div class="Aligner-item Aligner-item--top"></div>
+    <img src="assets/splashRelatai.svg">
+    <div class="Aligner-item Aligner-item--bottom"></div>
+  </div>
+</div>
+
+<ion-fab top right>
+  <button ion-button color="primary" round (click)="showCheckbox()">
+    <ion-icon name="md-globe" class="label"> Categorias</ion-icon>
+  </button>
+</ion-fab>
+<ion-content>
+  <div #map id="map_canvas" style="height: 100%;"></div>
+</ion-content>
