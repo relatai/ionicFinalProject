@@ -1,3 +1,23 @@
 page-relatar-problema {
+    ion-textarea{
+        background-color: rgb(231, 235, 234);
+    }
+    ion-select{
+        border-radius: 3%;
+        width: 100%;
+        border-style:inset;
+        border-color: rgb(226, 219, 219);
+    }
+    button{
+        width: 50%;
+    }
 
+    ion-card {
+        position: relative;        
+    }
+    .bg-img{
+        background-image: url("../../assets/imgs/camera.png");
+    }
+    
+    
 }

@@ -3,8 +3,6 @@ import { BrowserModule } from '@angular/platform-browser';
 import { IonicApp, IonicModule, IonicErrorHandler } from 'ionic-angular';
 import { MyApp } from './app.component';
 
-import { AboutPage } from '../pages/about/about';
-import { ContactPage } from '../pages/contact/contact';
 import { TabsPage } from '../pages/tabs/tabs';
 
 import { StatusBar } from '@ionic-native/status-bar';
@@ -15,12 +13,11 @@ import { MapaPage } from '../pages/mapa/mapa';
 import { MostrarMeusRelatosPage } from '../pages/mostrar-meus-relatos/mostrar-meus-relatos';
 import { RelatarProblemaPage } from '../pages/relatar-problema/relatar-problema';
 import { SobrePage } from '../pages/sobre/sobre';
+import { Camera } from '@ionic-native/camera';
 
 @NgModule({
   declarations: [
     MyApp,
-    AboutPage,
-    ContactPage,
     TabsPage,
     MapaPage,
     MostrarMeusRelatosPage,
@@ -34,8 +31,6 @@ import { SobrePage } from '../pages/sobre/sobre';
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    AboutPage,
-    ContactPage,
     TabsPage,
     MapaPage,
     MostrarMeusRelatosPage,
@@ -46,6 +41,7 @@ import { SobrePage } from '../pages/sobre/sobre';
     StatusBar,
     SplashScreen,
     GoogleMaps,
+    Camera,
     {provide: ErrorHandler, useClass: IonicErrorHandler}
   ]
 })

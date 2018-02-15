@@ -1,7 +1,4 @@
 import { Component } from '@angular/core';
-
-import { AboutPage } from '../about/about';
-import { ContactPage } from '../contact/contact';
 import { MapaPage } from '../mapa/mapa';
 import { SobrePage } from '../sobre/sobre';
 import { RelatarProblemaPage } from '../relatar-problema/relatar-problema';
