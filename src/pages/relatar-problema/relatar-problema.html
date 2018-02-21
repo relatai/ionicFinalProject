@@ -17,8 +17,7 @@
 
   <ion-list>
     <ion-item>
-      <ion-label>Escolha a categoria</ion-label>
-      <ion-select [(ngModel)]="categoria">
+      <ion-select [(ngModel)]="categoria" interface="popover" placeholder="Escolha uma categoria">
         <ion-option value="sde" style="text-align:left;">Saúde</ion-option>
         <ion-option value="sba">Saneamento Básico</ion-option>
         <ion-option value="edu">Educação</ion-option>
@@ -45,10 +44,12 @@
   </ion-item>-->
 
   <ion-fab right bottom>
-      <button ion-fab color="primry"><ion-icon name="arrow-dropup"></ion-icon></button>
+      <button ion-fab color="primary"><ion-icon name="arrow-dropup"></ion-icon></button>
       <ion-fab-list side="top">
-        <button ion-fab><ion-icon name="ios-pin-outline"></ion-icon></button>
         <button ion-fab (click)="abreCamera()"><ion-icon name="md-camera"></ion-icon></button>
+      </ion-fab-list>
+      <ion-fab-list side="left">
+        <button ion-button round><ion-icon class="label" name="ios-pin-outline"><br/>Relatai</ion-icon></button>
       </ion-fab-list>
     </ion-fab>
 
