@@ -14,6 +14,7 @@ import { MostrarMeusRelatosPage } from '../pages/mostrar-meus-relatos/mostrar-me
 import { RelatarProblemaPage } from '../pages/relatar-problema/relatar-problema';
 import { SobrePage } from '../pages/sobre/sobre';
 import { Camera } from '@ionic-native/camera';
+import { IdentificacaoProvider } from '../providers/identificacao/identificacao';
 
 @NgModule({
   declarations: [
@@ -42,7 +43,8 @@ import { Camera } from '@ionic-native/camera';
     SplashScreen,
     GoogleMaps,
     Camera,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler},
+    IdentificacaoProvider
   ]
 })
 export class AppModule {}
