@@ -2,6 +2,7 @@ import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IdentificacaoProvider } from '../../providers/identificacao/identificacao';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -14,8 +15,18 @@ import { IdentificacaoProvider } from '../../providers/identificacao/identificac
 export class RelatarProblemaPage {
   private imgFoto: any = "assets/imgs/foto1.png";
   base64Image: string;
+  private latlgt:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private ident: IdentificacaoProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private ident: IdentificacaoProvider,private geolocation: Geolocation) {
+  }
+
+  posicaoAtual(){
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.latlgt = [resp.coords.latitude,resp.coords.longitude];
+      alert(this.latlgt);
+     }).catch((error) => {
+       console.log('Error getting location', error);
+     });
   }
 
   abreCamera() {
@@ -47,8 +58,8 @@ export class RelatarProblemaPage {
     alert("gravando o relato ...");
   }
 
-  ionViewDidLoad() {
-
+  ionViewDidEnter() {
+    this.posicaoAtual();
   }
 
 }

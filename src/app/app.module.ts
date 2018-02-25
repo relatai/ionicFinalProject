@@ -16,6 +16,7 @@ import { SobrePage } from '../pages/sobre/sobre';
 import { Camera } from '@ionic-native/camera';
 import { IdentificacaoProvider } from '../providers/identificacao/identificacao';
 import { HttpClientModule } from '@angular/common/http';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @NgModule({
   declarations: [
@@ -45,6 +46,7 @@ import { HttpClientModule } from '@angular/common/http';
     SplashScreen,
     GoogleMaps,
     Camera,
+    Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     IdentificacaoProvider
   ]
