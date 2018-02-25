@@ -15,6 +15,7 @@ import { RelatarProblemaPage } from '../pages/relatar-problema/relatar-problema'
 import { SobrePage } from '../pages/sobre/sobre';
 import { Camera } from '@ionic-native/camera';
 import { IdentificacaoProvider } from '../providers/identificacao/identificacao';
+import { HttpClientModule } from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -27,6 +28,7 @@ import { IdentificacaoProvider } from '../providers/identificacao/identificacao'
   ],
   imports: [
     BrowserModule,
+    HttpClientModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

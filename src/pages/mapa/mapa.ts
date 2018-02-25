@@ -4,30 +4,15 @@ import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
-  GoogleMapOptions,
-  CameraPosition,
-  MarkerOptions,
-  Marker
+  GoogleMapOptions
 } from '@ionic-native/google-maps';
 
 import { AlertController } from 'ionic-angular';
-import { RelatarProblemaPage } from '../relatar-problema/relatar-problema';
-import { IdentificacaoProvider } from '../../providers/identificacao/identificacao';
-
-/**
- * Generated class for the MapaPage page.
- *
- * See https://ionicframework.com/docs/components/#navigation for more info on
- * Ionic pages and navigation.
- */
 
 @IonicPage()
 @Component({
   selector: 'page-mapa',
-  templateUrl: 'mapa.html',
-  providers:[
-    IdentificacaoProvider
-  ]
+  templateUrl: 'mapa.html'
 })
 export class MapaPage {
 
@@ -38,7 +23,7 @@ export class MapaPage {
   testCheckboxOpen: boolean;
   map: GoogleMap;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public alertCtrl: AlertController,private ident:IdentificacaoProvider) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public alertCtrl: AlertController) {
     this.tabBarElement = document.querySelector('.tabbar');
   }
 
@@ -84,7 +69,7 @@ export class MapaPage {
           .then(marker => {
             marker.on(GoogleMapsEvent.MARKER_CLICK)
               .subscribe(() => {
-                this.ident.validarCelular();
+                //this.ident.validaCelular();
                 
               });
           });

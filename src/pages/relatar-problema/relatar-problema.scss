@@ -15,13 +15,20 @@ page-relatar-problema {
     }
     
     ion-card {
-        position: relative;        
+        position: relative; 
+        padding: 1%;
     }
-    .bg-img{
-        background-image: url("../../assets/imgs/camera.png");
-    }
+    
     .label{
         font-size: 12px;
+    }
+    .bg-img {
+        padding: 1%;
+        display: block;
+        margin: auto;
+        align-content: center;
+        background-color: rgb(231, 235, 234);
+        
     }
     
     
