@@ -17,6 +17,7 @@ import { Camera } from '@ionic-native/camera';
 import { IdentificacaoProvider } from '../providers/identificacao/identificacao';
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
+import { DadosMapaProvider } from '../providers/dados-mapa/dados-mapa';
 
 @NgModule({
   declarations: [
@@ -48,7 +49,8 @@ import { Geolocation } from '@ionic-native/geolocation';
     Camera,
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
-    IdentificacaoProvider
+    IdentificacaoProvider,
+    DadosMapaProvider
   ]
 })
 export class AppModule {}

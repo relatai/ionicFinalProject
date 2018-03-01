@@ -3,21 +3,24 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IdentificacaoProvider } from '../../providers/identificacao/identificacao';
 import { Geolocation } from '@ionic-native/geolocation';
+import { DadosMapaProvider } from '../../providers/dados-mapa/dados-mapa';
 
 @IonicPage()
 @Component({
   selector: 'page-relatar-problema',
   templateUrl: 'relatar-problema.html',
   providers: [
-    IdentificacaoProvider
+    IdentificacaoProvider,
+    DadosMapaProvider
   ]
 })
 export class RelatarProblemaPage {
   private imgFoto: any = "assets/imgs/foto1.png";
   base64Image: string;
   private latlgt:any;
+  dados:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private ident: IdentificacaoProvider,private geolocation: Geolocation) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private ident: IdentificacaoProvider,private geolocation: Geolocation, private dadosMapa:DadosMapaProvider) {
   }
 
   posicaoAtual(){
@@ -60,6 +63,16 @@ export class RelatarProblemaPage {
 
   ionViewDidEnter() {
     this.posicaoAtual();
+
+    this.dadosMapa.obterDadosMapa().subscribe(
+      data=>{
+        this.dados = data;
+        console.log(this.dados);
+      }, error => {
+        console.log(error);
+      }
+    );
+
   }
 
 }

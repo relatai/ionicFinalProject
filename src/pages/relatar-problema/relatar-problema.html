@@ -12,23 +12,21 @@
 
 </ion-header>
 -->
+ <!--<ion-option value="sde" style="text-align:left;">Saúde</ion-option>-->
 
 <ion-content padding-top>
 
   <ion-list>
     <ion-item>
       <ion-select [(ngModel)]="categoria" interface="popover" placeholder="Escolha uma categoria">
-        <ion-option value="sde" style="text-align:left;">Saúde</ion-option>
-        <ion-option value="sba">Saneamento Básico</ion-option>
-        <ion-option value="edu">Educação</ion-option>
-        <ion-option value="seg">Segurança</ion-option>
+        <ion-option *ngFor="let dado of dados" value= {{dado.id}} >{{dado.nome}}</ion-option>
       </ion-select>
     </ion-item>
   </ion-list>
   <ion-item>
     <ion-textarea placeholder="Descreva o problema"></ion-textarea>
   </ion-item>
-  
+
   <ion-card>
     <img class="bg-img" src="{{imgFoto}}" />
   </ion-card>

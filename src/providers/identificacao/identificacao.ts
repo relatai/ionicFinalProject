@@ -69,7 +69,7 @@ export class IdentificacaoProvider {
     let toast = this.toastCtrl.create({
       message: msg,
       duration: 7000,
-      position: 'middle'
+      position: 'top'
     });
     toast.onDidDismiss(() => {
       console.log('Fechou o toast');

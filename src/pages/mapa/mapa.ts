@@ -8,11 +8,15 @@ import {
 } from '@ionic-native/google-maps';
 
 import { AlertController } from 'ionic-angular';
+import { DadosMapaProvider } from '../../providers/dados-mapa/dados-mapa';
 
 @IonicPage()
 @Component({
   selector: 'page-mapa',
-  templateUrl: 'mapa.html'
+  templateUrl: 'mapa.html',
+  providers:[
+    DadosMapaProvider
+  ]
 })
 export class MapaPage {
 
@@ -22,9 +26,21 @@ export class MapaPage {
   testCheckboxResult: any;
   testCheckboxOpen: boolean;
   map: GoogleMap;
+  dados:any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public alertCtrl: AlertController) {
+  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public alertCtrl: AlertController, private dadosMapa:DadosMapaProvider) {
     this.tabBarElement = document.querySelector('.tabbar');
+  }
+
+  ionViewDidEnter(){
+    this.dadosMapa.obterDadosMapa().subscribe(
+      data=>{
+        this.dados = data;
+        console.log(this.dados);
+      }, error => {
+        console.log(error);
+      }
+    );
   }
 
   ionViewDidLoad() {
@@ -83,32 +99,15 @@ export class MapaPage {
 
   showCheckbox() {
     let alert = this.alertCtrl.create();
-    alert.setTitle('Escolha uma ou mais categorias para que aparessam no mapa.');
+    alert.setTitle('Escolha uma ou mais categorias para que apareçam no mapa.');
 
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Saneamento Básico',
-      value: 'SanBas',
-      //checked: true
-    });
-
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Saúde',
-      value: 'sau'
-    });
-
-    alert.addInput({
-      type: 'checkbox',
-      label: 'Educação',
-      value: 'edu'
-    });
-
-    alert.addInput({
-      type: 'checkbox',
-      label: 'segurança',
-      value: 'seg'
-    });
+    for (let i of this.dados) {
+      alert.addInput({
+        type: 'checkbox',
+        label: i.nome,
+        value: i.id,
+      });
+    }
 
     alert.addButton('Cancelar');
     alert.addButton({
