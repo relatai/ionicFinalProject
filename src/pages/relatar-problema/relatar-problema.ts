@@ -35,6 +35,7 @@ export class RelatarProblemaPage {
   }
 
   posicaoAtual() {
+    
     this.geolocation.getCurrentPosition().then((resp) => {
       this.latlgt = [resp.coords.latitude, resp.coords.longitude];
     }).catch((error) => {
@@ -43,6 +44,9 @@ export class RelatarProblemaPage {
   }
 
   abreCamera() {
+    
+    let loader = this.modulo.presentLoading();
+    
     let config: CameraOptions = {
       quality: 100,
       cameraDirection: 1,
@@ -54,16 +58,23 @@ export class RelatarProblemaPage {
     }
 
     this.camera.getPicture(config).then((imageData) => {
+      loader.dismiss();
       this.imgFoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
+      loader.dismiss();
       console.log(err);
     });
   }
 
   checaIdentificacao() {
+    
+    let loader = this.modulo.presentLoading();
+    
     if (this.ident.validaCelular()) {
+      loader.dismiss();
       this.ident.acao = "Relatai";
     } else {
+      loader.dismiss();
       this.validar();
     }
   }
@@ -93,12 +104,16 @@ export class RelatarProblemaPage {
 
   ionViewDidEnter() {
     this.posicaoAtual();
-
+    
+    let loader = this.modulo.presentLoading();
+    
     this.dadosMapa.obterDadosMapa().subscribe(
       data => {
+        loader.dismiss();
         this.dados = data;
         console.log(this.dados);
       }, error => {
+        loader.dismiss();
         console.log(error);
       }
     );

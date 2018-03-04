@@ -9,12 +9,14 @@ import {
 
 import { AlertController } from 'ionic-angular';
 import { DadosMapaProvider } from '../../providers/dados-mapa/dados-mapa';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
+import { ModuloProvider } from '../../providers/modulo/modulo';
 
 @IonicPage()
 @Component({
   selector: 'page-mapa',
   templateUrl: 'mapa.html',
-  providers:[
+  providers: [
     DadosMapaProvider
   ]
 })
@@ -26,18 +28,28 @@ export class MapaPage {
   testCheckboxResult: any;
   testCheckboxOpen: boolean;
   map: GoogleMap;
-  dados:any;
+  dados: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private googleMaps: GoogleMaps, public alertCtrl: AlertController, private dadosMapa:DadosMapaProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private googleMaps: GoogleMaps,
+    public alertCtrl: AlertController,
+    private dadosMapa: DadosMapaProvider,
+    private loadingCtrl: LoadingController,
+    private modulo:ModuloProvider) {
     this.tabBarElement = document.querySelector('.tabbar');
   }
 
-  ionViewDidEnter(){
+  ionViewDidEnter() {
+    let loader = this.modulo.presentLoading();
     this.dadosMapa.obterDadosMapa().subscribe(
-      data=>{
+      data => {
+        loader.dismiss();
         this.dados = data;
         console.log(this.dados);
       }, error => {
+        loader.dismiss();
         console.log(error);
       }
     );
@@ -86,7 +98,7 @@ export class MapaPage {
             marker.on(GoogleMapsEvent.MARKER_CLICK)
               .subscribe(() => {
                 //this.ident.validaCelular();
-                
+
               });
           });
 
@@ -120,7 +132,5 @@ export class MapaPage {
     });
     alert.present();
   }
-
-
-
+  
 }

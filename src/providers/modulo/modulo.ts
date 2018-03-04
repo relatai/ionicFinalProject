@@ -1,10 +1,21 @@
 import { Injectable } from '@angular/core';
 import { ToastController } from 'ionic-angular';
+import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 
 @Injectable()
 export class ModuloProvider {
 
-  constructor(private toastCtrl: ToastController) {
+  constructor(
+    private toastCtrl: ToastController,
+    private loadingCtrl: LoadingController) {
+  }
+
+  presentLoading() {
+    let loader = this.loadingCtrl.create({
+      content: "Aguarde..."
+    });
+    loader.present();
+    return loader;
   }
 
   toastTopLong(msg) {
