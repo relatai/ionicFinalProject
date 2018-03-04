@@ -14,7 +14,7 @@ export class DadosMapaProvider {
   }
 
   obterDadosMapa(){
-    return this.http.get('https://relatai-api.herokuapp.com/categorias');
+    return this.http.get('https://api-relatai.herokuapp.com/categorias');
   }
 
 }

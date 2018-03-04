@@ -4,6 +4,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IdentificacaoProvider } from '../../providers/identificacao/identificacao';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DadosMapaProvider } from '../../providers/dados-mapa/dados-mapa';
+import { AlertController } from 'ionic-angular';
+import { ModuloProvider } from '../../providers/modulo/modulo';
+
 
 @IonicPage()
 @Component({
@@ -16,20 +19,27 @@ import { DadosMapaProvider } from '../../providers/dados-mapa/dados-mapa';
 })
 export class RelatarProblemaPage {
   private imgFoto: any = "assets/imgs/foto1.png";
-  base64Image: string;
-  private latlgt:any;
-  dados:any;
+  private latlgt: any;
+  private dados: any;
+  private categoria: any;
+  private descricao: any;
 
-  constructor(public navCtrl: NavController, public navParams: NavParams, private camera: Camera, private ident: IdentificacaoProvider,private geolocation: Geolocation, private dadosMapa:DadosMapaProvider) {
+  constructor(
+    public navCtrl: NavController,
+    public navParams: NavParams,
+    private camera: Camera,
+    private ident: IdentificacaoProvider,
+    private geolocation: Geolocation,
+    private dadosMapa: DadosMapaProvider,
+    private modulo:ModuloProvider) {
   }
 
-  posicaoAtual(){
+  posicaoAtual() {
     this.geolocation.getCurrentPosition().then((resp) => {
-      this.latlgt = [resp.coords.latitude,resp.coords.longitude];
-      alert(this.latlgt);
-     }).catch((error) => {
-       console.log('Error getting location', error);
-     });
+      this.latlgt = [resp.coords.latitude, resp.coords.longitude];
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
   abreCamera() {
@@ -46,7 +56,7 @@ export class RelatarProblemaPage {
     this.camera.getPicture(config).then((imageData) => {
       this.imgFoto = 'data:image/jpeg;base64,' + imageData;
     }, (err) => {
-      // Handle error
+      console.log(err);
     });
   }
 
@@ -54,18 +64,38 @@ export class RelatarProblemaPage {
     if (this.ident.validaCelular()) {
       this.ident.acao = "Relatai";
     } else {
-      this.relatar();
+      this.validar();
     }
   }
-  relatar() {
-    alert("gravando o relato ...");
+
+  validar() {
+    if(this.latlgt == undefined){
+      this.modulo.toastTopLong("Não estou encontrando sua localização. Verifique se seu celular está com o GPS ligado, depois tente novamente.");
+      return false;
+    }else if (this.categoria == undefined) {
+      this.modulo.toastButtomShort("Escolha uma categoria.");
+      return false;
+    } else if (this.descricao == undefined) {
+      this.modulo.toastTopShort("Não entendi! descreva o problema por favor.");
+      return false;
+    } else if (this.imgFoto == "assets/imgs/foto1.png") {
+      this.modulo.toastTopShort("A foto é essencial no relato.");
+      return false;  
+    }else{
+      this.relatar();
+    }
+
+  }
+
+  relatar(){
+    this.modulo.toastTopShort("Registrando o relato...");
   }
 
   ionViewDidEnter() {
     this.posicaoAtual();
 
     this.dadosMapa.obterDadosMapa().subscribe(
-      data=>{
+      data => {
         this.dados = data;
         console.log(this.dados);
       }, error => {
@@ -74,5 +104,28 @@ export class RelatarProblemaPage {
     );
 
   }
+  /*
+  confirmarFoto() {
+    let alert = this.alertCtrl.create({
+      title: 'Registro de imagem',
+      message: 'Com uma foto ficaria melhor, gostaria de tirar uma?',
+      buttons: [
+        {
+          text: 'Não',
+          role: 'não',
+          handler: () => {
+            this.relatar();
+          }
+        },
+        {
+          text: 'Sim',
+          handler: () => {
+            this.abreCamera();
+          }
+        }
+      ]
+    });
+    alert.present();
+  }*/
 
 }

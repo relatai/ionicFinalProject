@@ -1,7 +1,7 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { AlertController } from 'ionic-angular';
-import { ToastController } from 'ionic-angular';
+import { ModuloProvider } from '../../providers/modulo/modulo';
 
 @Injectable()
 export class IdentificacaoProvider {
@@ -9,7 +9,10 @@ export class IdentificacaoProvider {
   private phone:string;
   public acao:string;
 
-  constructor(public http: HttpClient, public alertCtrl: AlertController, private toastCtrl: ToastController) {
+  constructor(
+    public http: HttpClient, 
+    public alertCtrl: AlertController,
+    private modulo:ModuloProvider) {
   }
 
   validaCelular() {
@@ -41,13 +44,13 @@ export class IdentificacaoProvider {
                   this.idUsuario = data;
                   
                 localStorage.setItem("idUsuario",this.idUsuario.id);
-                this.toastIdentificacao('Pronto! Agora é só clicar novamente em '+this.acao);
+                this.modulo.toastTopLong('Pronto! Agora é só clicar novamente em '+this.acao);
                 },
                   err => console.log("error is "+err),
                 );
 
               } else {
-                this.toastIdentificacao('Acho que você digitou errado, tente novamente. Esse Exemplo pode te ajudar (99)911110000');
+                this.modulo.toastTopLong('Acho que você digitou errado, tente novamente. Esse Exemplo pode te ajudar (99)911110000');
                 return false;
               }
             }
@@ -62,18 +65,7 @@ export class IdentificacaoProvider {
   }
 
   obterId(telefone:any){
-    return  this.http.get("https://relatai-api.herokuapp.com/usuarios/" + telefone);
+    return  this.http.get("https://api-relatai.herokuapp.com/usuarios/" + telefone);
   }
 
-  toastIdentificacao(msg) {
-    let toast = this.toastCtrl.create({
-      message: msg,
-      duration: 7000,
-      position: 'top'
-    });
-    toast.onDidDismiss(() => {
-      console.log('Fechou o toast');
-    });
-    toast.present();
-  }
 }

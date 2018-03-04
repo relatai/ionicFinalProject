@@ -18,6 +18,7 @@ import { IdentificacaoProvider } from '../providers/identificacao/identificacao'
 import { HttpClientModule } from '@angular/common/http';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DadosMapaProvider } from '../providers/dados-mapa/dados-mapa';
+import { ModuloProvider } from '../providers/modulo/modulo';
 
 @NgModule({
   declarations: [
@@ -50,7 +51,8 @@ import { DadosMapaProvider } from '../providers/dados-mapa/dados-mapa';
     Geolocation,
     {provide: ErrorHandler, useClass: IonicErrorHandler},
     IdentificacaoProvider,
-    DadosMapaProvider
+    DadosMapaProvider,
+    ModuloProvider
   ]
 })
 export class AppModule {}
