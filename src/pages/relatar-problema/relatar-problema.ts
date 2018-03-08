@@ -4,8 +4,9 @@ import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IdentificacaoProvider } from '../../providers/identificacao/identificacao';
 import { Geolocation } from '@ionic-native/geolocation';
 import { DadosMapaProvider } from '../../providers/dados-mapa/dados-mapa';
-import { AlertController } from 'ionic-angular';
 import { ModuloProvider } from '../../providers/modulo/modulo';
+import { RelatoProvider } from '../../providers/relato/relato';
+import { MapaPage } from '../mapa/mapa';
 
 
 @IonicPage()
@@ -14,15 +15,20 @@ import { ModuloProvider } from '../../providers/modulo/modulo';
   templateUrl: 'relatar-problema.html',
   providers: [
     IdentificacaoProvider,
-    DadosMapaProvider
+    DadosMapaProvider,
+    RelatoProvider
   ]
 })
 export class RelatarProblemaPage {
-  private imgFoto: any = "assets/imgs/foto1.png";
-  private latlgt: any;
+  private imgFoto: string = "assets/imgs/foto1.png";
+  private latitude: number;
+  private longitude: number;
   private dados: any;
   private categoria: any;
   private descricao: any;
+  private dataSistema:string;
+  private horaSistema:string;
+  private relato:any;
 
   constructor(
     public navCtrl: NavController,
@@ -31,13 +37,15 @@ export class RelatarProblemaPage {
     private ident: IdentificacaoProvider,
     private geolocation: Geolocation,
     private dadosMapa: DadosMapaProvider,
-    private modulo:ModuloProvider) {
+    private modulo:ModuloProvider,
+    private relatoProvider:RelatoProvider) {
   }
-
+  
   posicaoAtual() {
     
     this.geolocation.getCurrentPosition().then((resp) => {
-      this.latlgt = [resp.coords.latitude, resp.coords.longitude];
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
     }).catch((error) => {
       console.log('Error getting location', error);
     });
@@ -75,12 +83,21 @@ export class RelatarProblemaPage {
       this.ident.acao = "Relatai";
     } else {
       loader.dismiss();
+
+      let dat = new Date();
+      this.dataSistema = ("00" + dat.getDate()).slice(-2)+"/"+("00" + (dat.getMonth()+1)).slice(-2)+"/"+dat.getFullYear();
+      this.horaSistema = ("00" + dat.getHours()).slice(-2)+":"+("00" + dat.getMinutes()).slice(-2);
+
       this.validar();
     }
   }
 
   validar() {
-    if(this.latlgt == undefined){
+    if(this.dataSistema == "" || this.dataSistema == undefined || this.horaSistema == "" || this.horaSistema == undefined){
+      this.modulo.toastTopLong("Encontramos problemas ao obter a data ou a hora do seu aparelho.");
+      return false;
+    }
+    if(this.latitude == undefined || this.longitude == undefined){
       this.modulo.toastTopLong("Não estou encontrando sua localização. Verifique se seu celular está com o GPS ligado, depois tente novamente.");
       return false;
     }else if (this.categoria == undefined) {
@@ -99,48 +116,42 @@ export class RelatarProblemaPage {
   }
 
   relatar(){
-    this.modulo.toastTopShort("Registrando o relato...");
-  }
+
+      this.relato ={
+        "usuario":[{
+          "id": localStorage.getItem("idUsuario") 
+        }],
+        "dataPublicacao": this.dataSistema,
+        "horaPublicacao": this.horaSistema,
+        "descricao": this.descricao,
+        "latitude": this.latitude,
+        "longitude": this.longitude,
+        "foto": this.imgFoto
+      }
+    
+    this.relatoProvider.id_categoria = this.categoria;
+    this.relatoProvider.relato = this.relato;
+    
+    
+    //this.relatoProvider.EnviarRelato().subscribe(data =>{
+    //  console.log("Relato enviado com sucesso!");
+    //},
+    //  err =>  console.log(err),
+    //);
+    this.modulo.toastTopLong("Relato registrado!");
+    //this.navCtrl.push(MapaPage);
+  
+}
 
   ionViewDidEnter() {
     this.posicaoAtual();
-    
-    let loader = this.modulo.presentLoading();
-    
     this.dadosMapa.obterDadosMapa().subscribe(
       data => {
-        loader.dismiss();
         this.dados = data;
         console.log(this.dados);
       }, error => {
-        loader.dismiss();
         console.log(error);
       }
     );
-
   }
-  /*
-  confirmarFoto() {
-    let alert = this.alertCtrl.create({
-      title: 'Registro de imagem',
-      message: 'Com uma foto ficaria melhor, gostaria de tirar uma?',
-      buttons: [
-        {
-          text: 'Não',
-          role: 'não',
-          handler: () => {
-            this.relatar();
-          }
-        },
-        {
-          text: 'Sim',
-          handler: () => {
-            this.abreCamera();
-          }
-        }
-      ]
-    });
-    alert.present();
-  }*/
-
 }

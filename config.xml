@@ -4,7 +4,7 @@
     <description>Relate seus problemas aqui, Relatai!</description>
     <author email="suporte.relatai@gmail.com" href="http://ionicframework.com/">Ionic Framework Team</author>
     <content src="index.html" />
-    <access origin="*" />
+    <access origin="*://*/*" />
     <allow-intent href="http://*/*" />
     <allow-intent href="https://*/*" />
     <allow-intent href="tel:*" />
@@ -89,5 +89,6 @@
     <allow-navigation href="http://192.168.1.146:8100" />
     <plugin name="cordova-plugin-camera" spec="^4.0.2" />
     <plugin name="cordova-plugin-geolocation" spec="^4.0.1" />
-    <engine name="android" spec="~7.0.0" />
+    <engine name="android" spec="7.0.0" />
+    <engine name="browser" spec="5.0.3" />
 </widget>

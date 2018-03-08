@@ -65,7 +65,9 @@ export class IdentificacaoProvider {
   }
 
   obterId(telefone:any){
-    return  this.http.get("https://api-relatai.herokuapp.com/usuarios/" + telefone);
+    return  this.http.get("https://api-relatai.herokuapp.com/usuarios/" + telefone,
+    {headers: {'Content-Type': 'application/json'}
+    });
   }
 
 }

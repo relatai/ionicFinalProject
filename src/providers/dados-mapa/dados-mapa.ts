@@ -1,12 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 
-/*
-  Generated class for the DadosMapaProvider provider.
-
-  See https://angular.io/guide/dependency-injection for more info on providers
-  and Angular DI.
-*/
 @Injectable()
 export class DadosMapaProvider {
 
@@ -14,7 +8,9 @@ export class DadosMapaProvider {
   }
 
   obterDadosMapa(){
-    return this.http.get('https://api-relatai.herokuapp.com/categorias');
+    return this.http.get('https://api-relatai.herokuapp.com/categorias',
+    {headers: {'Content-Type': 'application/json'}
+    });
   }
 
 }

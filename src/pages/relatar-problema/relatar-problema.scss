@@ -1,17 +1,19 @@
 page-relatar-problema {
     ion-textarea{
-        border-radius: 3%;
+        
         max-width:100% !important;
         border-style:solid;
-        border-color: #057091;
-        background-color: rgb(231, 235, 234);
+        //border-color: #057091;
+        border-color: #d6d2d2;
+        background-color: rgb(242, 247, 245);
     }
     ion-select{
-        border-radius: 3%;
+        
         max-width:100% !important;
         border-style:solid;
-        border-color: #057091;
-        background-color: rgb(231, 235, 234);
+        //border-color: #057091;
+        border-color: #d6d2d2;
+        background-color: rgb(242, 247, 245);
     }
     
     ion-card {
