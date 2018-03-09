@@ -12,5 +12,10 @@ export class DadosMapaProvider {
     {headers: {'Content-Type': 'application/json'}
     });
   }
+  obterDadosMapaPorCategoria(categorias){
+    return this.http.get('https://api-relatai.herokuapp.com/categorias/'+categorias,
+    {headers: {'Content-Type': 'application/json'}
+    });
+  }
 
 }
