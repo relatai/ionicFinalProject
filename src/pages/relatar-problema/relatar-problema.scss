@@ -1,11 +1,14 @@
 page-relatar-problema {
     ion-textarea{
         
-        max-width:100% !important;
         border-style:solid;
+        box-shadow: none !important;
+        margin-bottom: 3%;
         //border-color: #057091;
         border-color: #d6d2d2;
+        border-radius:0.5cm;
         background-color: rgb(242, 247, 245);
+        box-shadow: transparent;
     }
     ion-select{
         
@@ -13,21 +16,25 @@ page-relatar-problema {
         border-style:solid;
         //border-color: #057091;
         border-color: #d6d2d2;
+        border-radius:0.5cm;
         background-color: rgb(242, 247, 245);
     }
     
-    ion-card {
-        position: relative; 
-        padding: 1%;
-    }
+    //ion-card {
+        //position: relative; 
+        //padding: 1%;
+    //}
     
     .label{
         font-size: 12px;
     }
     .bg-img {
-        padding: 1%;
+        //padding: 1%;
+        width: 95%;
         display: block;
         margin: auto;
+        border-color: #d6d2d2;
+        border-radius:0.5cm;
         align-content: center;
         background-color: rgb(231, 235, 234);
         

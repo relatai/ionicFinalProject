@@ -5,9 +5,26 @@ import { LoadingController } from 'ionic-angular/components/loading/loading-cont
 @Injectable()
 export class ModuloProvider {
 
+  public categorias: any;
+  public markers:any;
+
   constructor(
     private toastCtrl: ToastController,
     private loadingCtrl: LoadingController) {
+  }
+
+  setCategorias(dados){
+    this.categorias = dados;
+  }
+  getCategorias(){
+    return this.categorias;
+  }
+
+  setMarkers(dados){
+    this.markers = dados;
+  }
+  getMarkers(){
+    return this.markers;
   }
 
   presentLoading() {
@@ -47,6 +64,18 @@ export class ModuloProvider {
       message: msg,
       duration: 7000,
       position: 'buttom'
+    });
+    toast.onDidDismiss(() => {
+      console.log('Fechou o toast');
+    });
+    toast.present();
+  }
+
+  toastMiddleLong(msg) {
+    let toast = this.toastCtrl.create({
+      message: msg,
+      duration: 7000,
+      position: 'middle'
     });
     toast.onDidDismiss(() => {
       console.log('Fechou o toast');

@@ -3,7 +3,6 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { Camera, CameraOptions } from '@ionic-native/camera';
 import { IdentificacaoProvider } from '../../providers/identificacao/identificacao';
 import { Geolocation } from '@ionic-native/geolocation';
-import { DadosMapaProvider } from '../../providers/dados-mapa/dados-mapa';
 import { ModuloProvider } from '../../providers/modulo/modulo';
 import { RelatoProvider } from '../../providers/relato/relato';
 import { MapaPage } from '../mapa/mapa';
@@ -15,7 +14,6 @@ import { MapaPage } from '../mapa/mapa';
   templateUrl: 'relatar-problema.html',
   providers: [
     IdentificacaoProvider,
-    DadosMapaProvider,
     RelatoProvider
   ]
 })
@@ -36,7 +34,6 @@ export class RelatarProblemaPage {
     private camera: Camera,
     private ident: IdentificacaoProvider,
     private geolocation: Geolocation,
-    private dadosMapa: DadosMapaProvider,
     private modulo:ModuloProvider,
     private relatoProvider:RelatoProvider) {
   }
@@ -100,10 +97,10 @@ export class RelatarProblemaPage {
     if(this.latitude == undefined || this.longitude == undefined){
       this.modulo.toastTopLong("Não estou encontrando sua localização. Verifique se seu celular está com o GPS ligado, depois tente novamente.");
       return false;
-    }else if (this.categoria == undefined) {
+    }else if (this.categoria == undefined || this.categoria == "Escolha uma categoria") {
       this.modulo.toastButtomShort("Escolha uma categoria.");
       return false;
-    } else if (this.descricao == undefined) {
+    } else if (this.descricao == undefined || this.descricao == "") {
       this.modulo.toastTopShort("Não entendi! descreva o problema por favor.");
       return false;
     } else if (this.imgFoto == "assets/imgs/foto1.png") {
@@ -133,25 +130,23 @@ export class RelatarProblemaPage {
     this.relatoProvider.relato = this.relato;
     
     
-    //this.relatoProvider.EnviarRelato().subscribe(data =>{
-    //  console.log("Relato enviado com sucesso!");
-    //},
-    //  err =>  console.log(err),
-    //);
-    this.modulo.toastTopLong("Relato registrado!");
-    //this.navCtrl.push(MapaPage);
-  
+    this.relatoProvider.EnviarRelato().subscribe(data =>{
+      console.log("Relato enviado com sucesso!");
+    },
+      err =>  console.log(err),
+    );
+    
+    this.modulo.toastMiddleLong("Pronto! o Relato foi criado, selecione a categoria do seu relato e confira no mapa!");
+    this.navCtrl.parent.select(0);
+}
+ionViewDidLeave(){
+  this.imgFoto = "assets/imgs/foto1.png";
+  this.categoria = "Escolha uma categoria";
+  this.descricao = "";
 }
 
   ionViewDidEnter() {
     this.posicaoAtual();
-    this.dadosMapa.obterDadosMapa().subscribe(
-      data => {
-        this.dados = data;
-        console.log(this.dados);
-      }, error => {
-        console.log(error);
-      }
-    );
+    this.dados = this.modulo.getCategorias();
   }
 }
