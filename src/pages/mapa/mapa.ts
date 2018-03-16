@@ -4,7 +4,8 @@ import {
   GoogleMaps,
   GoogleMap,
   GoogleMapsEvent,
-  GoogleMapOptions
+  GoogleMapOptions,
+  HtmlInfoWindow
 } from '@ionic-native/google-maps';
 
 import { AlertController } from 'ionic-angular';
@@ -82,16 +83,31 @@ export class MapaPage {
     };
     this.map = this.googleMaps.create('map_canvas', mapOptions);
 
+
+
+    
+    
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
         console.log('Map is ready!');
         for(let x in this.modulo.getMarkers()){
           for (let i of this.modulo.getMarkers()[x].relatos) {
+            
+            let htmlInfoWindow = new HtmlInfoWindow();
+            let frame: HTMLElement = document.createElement('div');
+            frame.innerHTML = [
+              '<div style="width:100%;height:120px;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><h5>Problema relatado</h5>'+i.descricao+'<div/><p><button ion-button color="primary" round>Mais informações</button></p>'
+            ].join("");
+            frame.getElementsByTagName("div")[0].addEventListener("click", () => {
+              htmlInfoWindow.close();
+              alert("funfou");
+            });
+            htmlInfoWindow.setContent(frame, {width: "200px", height: "130px", margin:"none", border:"none",padding:"none"});
+            
             this.map.addMarker({
-              title: i.descricao,
               icon: 'red',
-              animation: 'DROP',
+              animation: 'BOUNCE',
               position: {
                 lat: i.latitude,
                 lng: i.longitude
@@ -101,6 +117,7 @@ export class MapaPage {
               .then(marker => {
                 marker.on(GoogleMapsEvent.MARKER_CLICK)
                   .subscribe(() => {
+                    htmlInfoWindow.open(marker);
                   });
               });
           }
