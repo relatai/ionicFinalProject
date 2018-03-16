@@ -20,6 +20,7 @@ import { Geolocation } from '@ionic-native/geolocation';
 import { DadosMapaProvider } from '../providers/dados-mapa/dados-mapa';
 import { ModuloProvider } from '../providers/modulo/modulo';
 import { RelatoProvider } from '../providers/relato/relato';
+import { ModalRelatoPage } from '../pages/modal-relato/modal-relato';
 
 @NgModule({
   declarations: [
@@ -28,7 +29,8 @@ import { RelatoProvider } from '../providers/relato/relato';
     MapaPage,
     MostrarMeusRelatosPage,
     RelatarProblemaPage,
-    SobrePage
+    SobrePage,
+    ModalRelatoPage
   ],
   imports: [
     BrowserModule,
@@ -42,7 +44,8 @@ import { RelatoProvider } from '../providers/relato/relato';
     MapaPage,
     MostrarMeusRelatosPage,
     RelatarProblemaPage,
-    SobrePage
+    SobrePage,
+    ModalRelatoPage
   ],
   providers: [
     StatusBar,

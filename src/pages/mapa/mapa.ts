@@ -12,6 +12,8 @@ import { AlertController } from 'ionic-angular';
 import { DadosMapaProvider } from '../../providers/dados-mapa/dados-mapa';
 import { LoadingController } from 'ionic-angular/components/loading/loading-controller';
 import { ModuloProvider } from '../../providers/modulo/modulo';
+import { ModalController } from 'ionic-angular/components/modal/modal-controller';
+import { ModalRelatoPage } from '../modal-relato/modal-relato';
 
 @IonicPage()
 @Component({
@@ -30,6 +32,12 @@ export class MapaPage {
   testCheckboxOpen: boolean;
   map: GoogleMap;
 
+  //dados para o relato modal
+  idRelato:any;
+  categoria:any;
+  
+
+
   constructor(
     public navCtrl: NavController,
     public navParams: NavParams,
@@ -37,7 +45,8 @@ export class MapaPage {
     public alertCtrl: AlertController,
     private dadosMapa: DadosMapaProvider,
     private loadingCtrl: LoadingController,
-    private modulo:ModuloProvider) {
+    private modulo:ModuloProvider,
+    public modalCtrl:ModalController) {
     
       this.tabBarElement = document.querySelector('.tabbar');
       
@@ -92,8 +101,20 @@ export class MapaPage {
       .then(() => {
         console.log('Map is ready!');
         for(let x in this.modulo.getMarkers()){
+          this.idRelato = this.modulo.getMarkers()[x].id;
+          this.categoria = this.modulo.getMarkers()[x].nome;
+
           for (let i of this.modulo.getMarkers()[x].relatos) {
-            
+
+            let idRel:any = this.idRelato;
+            let nomeCategoria:any = this.categoria;
+            let dt:any = i.dataPublicacao;
+            let hr:any = i.horaPublicacao;
+            let desc:any = i.descricao;
+            let fot:any = i.foto;
+            let confirma:any = i.confirmado;
+            let denuncia:any = i.denunciado;
+                      
             let htmlInfoWindow = new HtmlInfoWindow();
             let frame: HTMLElement = document.createElement('div');
             frame.innerHTML = [
@@ -101,7 +122,8 @@ export class MapaPage {
             ].join("");
             frame.getElementsByTagName("div")[0].addEventListener("click", () => {
               htmlInfoWindow.close();
-              alert("funfou");
+              let param = {idRelato:idRel, categoria:nomeCategoria, data:dt,hora:hr,descricao:desc,foto:fot,confirmado:confirma,denunciado:denuncia};
+              this.abrirModalRelato(param);
             });
             htmlInfoWindow.setContent(frame, {width: "200px", height: "130px", margin:"none", border:"none",padding:"none"});
             
@@ -163,6 +185,10 @@ export class MapaPage {
       }
     });
     alrt.present();
+  }
+
+  abrirModalRelato(parametros){
+    this.modalCtrl.create(ModalRelatoPage,{relato:parametros}).present();
   }
 
 }

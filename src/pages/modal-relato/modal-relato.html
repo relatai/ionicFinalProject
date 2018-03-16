@@ -1,0 +1,52 @@
+<ion-header>
+    <ion-toolbar color="primary">
+      <ion-title>
+        Relato
+      </ion-title>
+      <ion-buttons start>
+        <button ion-button (click)="fecharModalRelato()">
+          <span ion-text color="primary" showWhen="ios">Fechar</span>
+          <ion-icon name="md-close-circle" showWhen="android, windows"></ion-icon>
+        </button>
+      </ion-buttons>
+    </ion-toolbar>
+  </ion-header>
+
+<ion-content>
+  <ion-card>
+
+    <ion-item>
+      <ion-avatar item-start>
+        <img src={{relato.foto}}>
+      </ion-avatar>
+      <h2>{{relato.categoria}}</h2>
+      <p>Data: {{relato.data}}, hora: {{relato.hora}}</p>
+    </ion-item>
+
+    <img src={{relato.foto}} height="70%">
+
+    <ion-card-content>
+      <p>{{relato.descricao}}</p>
+    </ion-card-content>
+
+    <ion-row>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="thumbs-up"></ion-icon>
+          <div>{{relato.confirmado}}</div>
+        </button>
+      </ion-col>
+      <ion-col>
+        <button ion-button icon-left clear small>
+          <ion-icon name="thumbs-down"></ion-icon>
+          <div>{{relato.denunciado}}</div>
+        </button>
+      </ion-col>
+      <ion-col center text-center>
+        <ion-note>
+          {{relato.data}}, {{relato.hora}}
+        </ion-note>
+      </ion-col>
+    </ion-row>
+  </ion-card>
+</ion-content>
