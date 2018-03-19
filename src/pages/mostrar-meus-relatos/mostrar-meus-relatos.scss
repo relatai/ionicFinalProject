@@ -1,3 +1,11 @@
 page-mostrar-meus-relatos {
-
+    img{
+        border-radius:0.2cm;
+    }
+    h2{
+        max-width:220px;
+        overflow:hidden;
+        text-overflow:ellipsis;
+        white-space:nowrap;
+    }
 }

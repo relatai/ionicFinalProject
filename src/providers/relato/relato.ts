@@ -15,5 +15,13 @@ export class RelatoProvider {
       this.relato,{headers: {'Content-Type': 'application/json'}
     });
   }
-  
+  obterMeusRelatos(){
+    return this.http.get('https://api-relatai.herokuapp.com/relatos/'+localStorage.getItem("idUsuario")+'/usuarios',
+    {headers: {'Content-Type': 'application/json'}
+    });
+  }
+  deletarRelato(idRelato){
+    return this.http.delete('https://api-relatai.herokuapp.com/relatos/'+idRelato+'/selecionados'
+    );
+  }
 }

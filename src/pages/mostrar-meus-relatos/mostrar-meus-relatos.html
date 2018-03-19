@@ -1,18 +1,35 @@
-<!--
-  Generated template for the MostrarMeusRelatosPage page.
-
-  See http://ionicframework.com/docs/components/#navigation for more info on
-  Ionic pages and navigation.
--->
 <ion-header>
 
-  <ion-navbar>
+  <ion-navbar color="primary">
     <ion-title>Meus Relatos</ion-title>
   </ion-navbar>
 
 </ion-header>
 
+<ion-content>
 
-<ion-content padding>
+  <ion-list *ngFor="let meuRelato of meusRelatos">
+    <ion-item-sliding (ionSwipe)="delete(item)">
+      <ion-item>
+        <ion-thumbnail item-start>
+          <img src={{meuRelato.foto}}>
+        </ion-thumbnail>
+        <h2>{{meuRelato.descricao}}</h2>
+        <h4>Dia {{meuRelato.dataPublicacao}} às {{meuRelato.horaPublicacao}}</h4>
+        <p>
+          <ion-icon name="thumbs-up"></ion-icon>
+          {{meuRelato.confirmado}} &nbsp;&nbsp;
+          <ion-icon name="thumbs-down"></ion-icon>
+          {{meuRelato.denunciado}}</p>
+        <!--<button ion-button clear item-end>Ver</button>-->
+      </ion-item>
+      <ion-item-options side="left">
+          <button ion-button expandable (click)="delete(meuRelato)" color="danger"><ion-icon name="ios-trash-outline"></ion-icon>Excluir</button>
+      </ion-item-options>
+      <ion-item-options side="right">
+          <button ion-button expandable (click)="delete(meuRelato)" color="danger"><ion-icon name="ios-trash-outline"></ion-icon>Excluir</button>
+      </ion-item-options>
+    </ion-item-sliding>
+  </ion-list>
 
 </ion-content>

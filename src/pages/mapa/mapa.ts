@@ -118,7 +118,7 @@ export class MapaPage {
             let htmlInfoWindow = new HtmlInfoWindow();
             let frame: HTMLElement = document.createElement('div');
             frame.innerHTML = [
-              '<div style="width:100%;height:120px;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><h5>Problema relatado</h5>'+i.descricao+'<div/><p><button ion-button color="primary" round>Mais informações</button></p>'
+              '<div style="width:100%;height:120px;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><h5>'+nomeCategoria+'</h5>'+i.descricao+'<div/><p><button ion-button color="primary" round>Mais informações</button></p>'
             ].join("");
             frame.getElementsByTagName("div")[0].addEventListener("click", () => {
               htmlInfoWindow.close();
