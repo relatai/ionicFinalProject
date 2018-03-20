@@ -53,10 +53,10 @@ export class RelatarProblemaPage {
     let loader = this.modulo.presentLoading();
     
     let config: CameraOptions = {
-      quality: 100,
+      quality: 70,
       cameraDirection: 1,
-      saveToPhotoAlbum: true,
-      correctOrientation: false,
+      saveToPhotoAlbum: false,
+      correctOrientation: true,
       destinationType: this.camera.DestinationType.DATA_URL,
       encodingType: this.camera.EncodingType.JPEG,
       mediaType: this.camera.MediaType.PICTURE
@@ -135,6 +135,7 @@ export class RelatarProblemaPage {
     },
       err =>  console.log(err),
     );
+    
     
     this.modulo.toastMiddleLong("Pronto! o Relato foi criado, selecione a categoria do seu relato e confira no mapa!");
     this.navCtrl.parent.select(0);

@@ -14,6 +14,7 @@ import { LoadingController } from 'ionic-angular/components/loading/loading-cont
 import { ModuloProvider } from '../../providers/modulo/modulo';
 import { ModalController } from 'ionic-angular/components/modal/modal-controller';
 import { ModalRelatoPage } from '../modal-relato/modal-relato';
+import { Geolocation } from '@ionic-native/geolocation';
 
 @IonicPage()
 @Component({
@@ -31,6 +32,8 @@ export class MapaPage {
   testCheckboxResult: any;
   testCheckboxOpen: boolean;
   map: GoogleMap;
+  private latitude: number;
+  private longitude: number;
 
   //dados para o relato modal
   idRelato:any;
@@ -46,7 +49,8 @@ export class MapaPage {
     private dadosMapa: DadosMapaProvider,
     private loadingCtrl: LoadingController,
     private modulo:ModuloProvider,
-    public modalCtrl:ModalController) {
+    public modalCtrl:ModalController,
+    public geolocation: Geolocation) {
     
       this.tabBarElement = document.querySelector('.tabbar');
       
@@ -57,19 +61,23 @@ export class MapaPage {
       }, 4000);
   }
 
+  //Ao entrar no mapa, faz um get na API obtendo todas as categorias e markers para
+  // dar a primeira carga no mapa
   ionViewDidEnter() {
     
-  }
+    this.posicaoAtual();
 
-  //Ao dar o load inicial, faz um get na API obtendo todas as categorias e markers para
-  // dar a primeira carga no mapa
-  ionViewDidLoad() {
     let loader = this.modulo.presentLoading();
     this.dadosMapa.obterDadosMapaPorCategoria("").subscribe(
       data => {
         loader.dismiss();
         this.modulo.setCategorias(data);
         this.modulo.setMarkers(data);
+        
+        if(this.map != undefined){
+          this.map.destroy();
+        }
+
         this.loadMap();
       }, error => {
         loader.dismiss();
@@ -83,19 +91,15 @@ export class MapaPage {
     let mapOptions: GoogleMapOptions = {
       camera: {
         target: {
-          lat: -14.383656,
-          lng: -51.345143
+          lat: this.latitude,
+          lng: this.longitude
         },
-        zoom: 4,
+        zoom: 17,
         tilt: 10
       }
     };
     this.map = this.googleMaps.create('map_canvas', mapOptions);
 
-
-
-    
-    
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
@@ -126,9 +130,22 @@ export class MapaPage {
               this.abrirModalRelato(param);
             });
             htmlInfoWindow.setContent(frame, {width: "200px", height: "130px", margin:"none", border:"none",padding:"none"});
+            let icone:any;
             
+            if(this.categoria == "Segurança"){
+              icone = "orange";
+            }else if(this.categoria == "Educação"){
+              icone = "blue";
+            }else if(this.categoria == "Saneamento básico"){
+              icone = "DarkCyan";
+            }else if(this.categoria == "Saúde"){
+              icone = "green";
+            }else{
+              icone = "red";
+            }
+
             this.map.addMarker({
-              icon: 'red',
+              icon: icone,
               animation: 'BOUNCE',
               position: {
                 lat: i.latitude,
@@ -189,6 +206,16 @@ export class MapaPage {
 
   abrirModalRelato(parametros){
     this.modalCtrl.create(ModalRelatoPage,{relato:parametros}).present();
+  }
+
+  posicaoAtual() {
+    
+    this.geolocation.getCurrentPosition().then((resp) => {
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
+    }).catch((error) => {
+      console.log('Error getting location', error);
+    });
   }
 
 }

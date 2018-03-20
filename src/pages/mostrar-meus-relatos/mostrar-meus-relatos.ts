@@ -72,14 +72,13 @@ export class MostrarMeusRelatosPage {
               this.relProv.deletarRelato(relato.id).subscribe(
                 data => {
                   loader.dismiss();
-                  //this.meusRelatos = data;
                   this.modulo.toastTopShort("O Relato foi Excluído!");
+                  this.listarRelatos();
                 }, error => {
                   loader.dismiss();
                   console.log(error);
                 }
               );
-              this.listarRelatos();
             }
           }
         ]
