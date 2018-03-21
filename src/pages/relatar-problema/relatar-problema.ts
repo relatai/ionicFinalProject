@@ -136,14 +136,14 @@ export class RelatarProblemaPage {
       err =>  console.log(err),
     );
     
-    
-    this.modulo.toastMiddleLong("Pronto! o Relato foi criado, selecione a categoria do seu relato e confira no mapa!");
-    this.navCtrl.parent.select(0);
+    this.imgFoto = "assets/imgs/foto1.png";
+    this.categoria = "Escolha uma categoria";
+    this.descricao = "";
+    this.modulo.toastMiddleLong("Pronto! o Relato foi criado, vá até o mapa e confira!");
+    //this.navCtrl.parent.select(0);
 }
 ionViewDidLeave(){
-  this.imgFoto = "assets/imgs/foto1.png";
-  this.categoria = "Escolha uma categoria";
-  this.descricao = "";
+  
 }
 
   ionViewDidEnter() {

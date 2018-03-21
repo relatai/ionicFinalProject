@@ -94,15 +94,31 @@ export class MapaPage {
           lat: this.latitude,
           lng: this.longitude
         },
-        zoom: 17,
-        tilt: 10
+        zoom: 14,
+        tilt: 0
       }
     };
+
     this.map = this.googleMaps.create('map_canvas', mapOptions);
+    var GOOGLE = {"lat": this.latitude, "lng": this.longitude};
 
     // Wait the MAP_READY before using any methods.
     this.map.one(GoogleMapsEvent.MAP_READY)
       .then(() => {
+
+       
+            // Add circle
+            this.map.addCircle({
+              'center': GOOGLE,
+              'radius': 100,
+              'strokeColor': '#ff9966',
+              'strokeOpacity': 0.008,
+              'strokeWeight': 0.008,
+              'fillColor': '#ff9966',
+              'fillOpacity': 0.35
+            });
+        
+
         console.log('Map is ready!');
         for(let x in this.modulo.getMarkers()){
           this.idRelato = this.modulo.getMarkers()[x].id;
