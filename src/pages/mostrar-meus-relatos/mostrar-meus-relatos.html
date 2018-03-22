@@ -22,12 +22,15 @@
           <ion-icon name="thumbs-down"></ion-icon>
           {{meuRelato.denunciado}}</p>
         <!--<button ion-button clear item-end>Ver</button>-->
+        <ion-icon name="ios-arrow-dropright-outline" item-end></ion-icon>
       </ion-item>
       <ion-item-options side="left">
-          <button ion-button expandable (click)="delete(meuRelato)" color="danger"><ion-icon name="ios-trash-outline"></ion-icon>Excluir</button>
+        <button ion-button expandable (click)="delete(meuRelato)" color="danger">
+          <ion-icon name="ios-trash-outline"></ion-icon>Excluir</button>
       </ion-item-options>
       <ion-item-options side="right">
-          <button ion-button expandable (click)="delete(meuRelato)" color="danger"><ion-icon name="ios-trash-outline"></ion-icon>Excluir</button>
+        <button ion-button expandable (click)="delete(meuRelato)" color="danger">
+          <ion-icon name="ios-trash-outline"></ion-icon>Excluir</button>
       </ion-item-options>
     </ion-item-sliding>
   </ion-list>

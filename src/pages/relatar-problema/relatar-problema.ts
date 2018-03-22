@@ -5,7 +5,6 @@ import { IdentificacaoProvider } from '../../providers/identificacao/identificac
 import { Geolocation } from '@ionic-native/geolocation';
 import { ModuloProvider } from '../../providers/modulo/modulo';
 import { RelatoProvider } from '../../providers/relato/relato';
-import { MapaPage } from '../mapa/mapa';
 
 
 @IonicPage()

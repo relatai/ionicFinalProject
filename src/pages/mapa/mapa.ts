@@ -47,7 +47,6 @@ export class MapaPage {
     private googleMaps: GoogleMaps,
     public alertCtrl: AlertController,
     private dadosMapa: DadosMapaProvider,
-    private loadingCtrl: LoadingController,
     private modulo:ModuloProvider,
     public modalCtrl:ModalController,
     public geolocation: Geolocation) {
@@ -110,12 +109,12 @@ export class MapaPage {
             // Add circle
             this.map.addCircle({
               'center': GOOGLE,
-              'radius': 100,
-              'strokeColor': '#ff9966',
+              'radius': 300,
+              'strokeColor': '#fff0e6',
               'strokeOpacity': 0.008,
               'strokeWeight': 0.008,
-              'fillColor': '#ff9966',
-              'fillOpacity': 0.35
+              'fillColor': '#fff0e6',
+              'fillOpacity': 0.008
             });
         
 
