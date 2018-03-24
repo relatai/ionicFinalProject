@@ -137,7 +137,7 @@ export class MapaPage {
             let htmlInfoWindow = new HtmlInfoWindow();
             let frame: HTMLElement = document.createElement('div');
             frame.innerHTML = [
-              '<div style="width:100%;height:120px;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><h5>'+nomeCategoria+'</h5>'+i.descricao+'<div/><p><button ion-button color="primary" round>Mais informações</button></p>'
+              '<div style="width:100%;height:120px;max-width:190px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap"><h5 style="color:#057091;">'+nomeCategoria+'</h5>'+i.descricao+'<div/><p><div align="center" style="background:#057091;float:left;padding:1px;text-align:center;color:white;width:70%;line-height:25px;border-radius:10px;" >Saiba mais</div></p>'
             ].join("");
             frame.getElementsByTagName("div")[0].addEventListener("click", () => {
               htmlInfoWindow.close();
