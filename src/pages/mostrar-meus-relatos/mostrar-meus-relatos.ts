@@ -25,18 +25,14 @@ export class MostrarMeusRelatosPage {
     public alertCtrl: AlertController) {
   }
 
-  ionViewDidEnter() {
-    if (this.ident.validaCelular()) {
-      this.irParaHome();
+  ionViewDidEnter(){
+    if (this.ident.validaCelular()){
+      this.navCtrl.parent.select(1);      
       this.ident.acao = "Meus Relatos";
-    } else {
+      //this.navCtrl.setRoot(this.navCtrl.getActive().component);
+    }else{
       this.listarRelatos();
-      console.log("carregando seus relatos...");
     }
-  }
-  irParaHome() {
-    this.navCtrl.parent.select(0);
-    console.log("entrou na irParaHome");
   }
 
   listarRelatos() {
