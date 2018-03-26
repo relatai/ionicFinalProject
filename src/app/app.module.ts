@@ -21,6 +21,7 @@ import { DadosMapaProvider } from '../providers/dados-mapa/dados-mapa';
 import { ModuloProvider } from '../providers/modulo/modulo';
 import { RelatoProvider } from '../providers/relato/relato';
 import { ModalRelatoPage } from '../pages/modal-relato/modal-relato';
+import { IntroPageModule } from '../pages/intro/intro.module';
 
 @NgModule({
   declarations: [
@@ -35,6 +36,7 @@ import { ModalRelatoPage } from '../pages/modal-relato/modal-relato';
   imports: [
     BrowserModule,
     HttpClientModule,
+    IntroPageModule,
     IonicModule.forRoot(MyApp)
   ],
   bootstrap: [IonicApp],

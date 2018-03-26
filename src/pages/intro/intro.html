@@ -1,0 +1,134 @@
+<ion-content padding>
+  <ion-slides pager>
+
+    <ion-slide>
+      <img src="assets/imgs/slide.gif" class="slide_image_deslizar">
+      <!--<img src="assets/imgs/slide2.gif" class="slide_image" >-->
+      <br>
+      <div>
+        <p>
+          Deslize para a esquerda e veja um tutorial de introdução...
+        </p>
+        <p>
+          <a (click)="goToTabsPage()">
+            <strong>Pular Intro</strong>
+          </a>
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/mapa.jpeg" class="slide_image">
+      <h2>Mapa</h2>
+      <br>
+      <div>
+        Veja relatos de problemas a partir de sua região
+        <p>
+          <a (click)="goToTabsPage()">
+            <strong>Pular Intro</strong>
+          </a>
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/pesquisa.jpeg" class="slide_image">
+      <h2>Filtro por categorias</h2>
+      <br>
+      <div>
+        Faça pesquisas por categoria de problemas
+        <p>
+          <a (click)="goToTabsPage()">
+            <strong>Pular Intro</strong>
+          </a>
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/infoRelato.jpeg" class="slide_image">
+      <h2>Resumo de relatos</h2>
+      <br>
+      <div>
+        Clique sobre um relato no mapa e tenha um resumo dos fatos.
+        <p>
+          <a (click)="goToTabsPage()">
+            <strong>Pular Intro</strong>
+          </a>
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/detalhesRelato.jpeg" class="slide_image">
+      <h2>Detalhes do relato</h2>
+      <br>
+      <div>
+        Clicando em "Saiba mais" em um relato no mapa, você terá todas as informações e poderá votar confirmando ou denunciando.
+        <p>
+          <a (click)="goToTabsPage()">
+            <strong>Pular Intro</strong>
+          </a>
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/relatar.jpeg" class="slide_image">
+      <h2>Criar relatos</h2>
+      <br>
+      <div>
+        Informe alguns dados, tire uma foto do acontecimento e clique em "Relataí" no canto inferior direito.
+        <p>
+          <a (click)="goToTabsPage()">
+            <strong>Pular Intro</strong>
+          </a>
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/celular_portrait.png" class="slide_image_swipe">
+      <h2>Foto dos relatos</h2>
+      <br>
+      <div>
+        Registe os relatos com o celular nessa posição.
+        <p>
+          <a (click)="goToTabsPage()">
+            <strong>Pular Intro</strong>
+          </a>
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/identificacao.jpeg" class="slide_image">
+      <h2>Identificação</h2>
+      <br>
+      <div>
+        O aplicativo precisa saber quem é você, nesse caso, informe os dados solicitados para prosseguir na utilização.
+        <p>
+          <a (click)="goToTabsPage()">
+            <strong>Pular Intro</strong>
+          </a>
+        </p>
+      </div>
+    </ion-slide>
+
+    <ion-slide>
+      <img src="assets/imgs/swipe.gif" class="slide_image_swipe">
+      <h2>Visualize ou apague seus relatos</h2>
+      <br>
+      <div>
+        <p>
+          Veja se seu relato está recebendo votos. Caso receba 5 denúncias será removido, caso receba 30 confirmações permanecerá no
+          mapa
+        </p>
+        <p>
+          <button ion-button round (click)="goToTabsPage()">Ir para o Aplicativo</button>
+        </p>
+      </div>
+    </ion-slide>
+
+  </ion-slides>
+</ion-content>
