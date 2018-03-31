@@ -49,7 +49,7 @@ export class MapaPage {
   }
 
   //Ao entrar no mapa, faz um get na API obtendo todas as categorias e markers para
-  // dar a primeira carga no mapa
+  // dar a primeira carga no mapa, 
   ionViewDidEnter() {
     this.geolocation.getCurrentPosition().then((resp) => {
 
@@ -115,12 +115,12 @@ export class MapaPage {
 
         console.log('Map is ready!');
         for (let x in this.modulo.getMarkers()) {
-          this.idRelato = this.modulo.getMarkers()[x].id;
+          //this.idRelato = this.modulo.getMarkers()[x].id;
           this.categoria = this.modulo.getMarkers()[x].nome;
 
           for (let i of this.modulo.getMarkers()[x].relatos) {
 
-            let idRel: any = this.idRelato;
+            let idRel: any = i.id;
             let nomeCategoria: any = this.categoria;
             let dt: any = i.dataPublicacao;
             let hr: any = i.horaPublicacao;
@@ -214,7 +214,12 @@ export class MapaPage {
   }
 
   abrirModalRelato(parametros) {
-    this.modalCtrl.create(ModalRelatoPage, { relato: parametros }).present();
+   let modal =  this.modalCtrl.create(ModalRelatoPage, { relato: parametros });
+
+   modal.onDidDismiss(data =>{
+     this.recarregaMapa(data);
+   })
+   modal.present();
   }
 
   posicaoAtual() {
@@ -225,6 +230,36 @@ export class MapaPage {
     }).catch((error) => {
       console.log('Error getting location', error);
     });
+  }
+
+  recarregaMapa(data){
+    if(data == "recarregar"){
+      this.geolocation.getCurrentPosition().then((resp) => {
+      this.latitude = resp.coords.latitude;
+      this.longitude = resp.coords.longitude;
+     
+      let loader = this.modulo.presentLoading();
+      this.dadosMapa.obterDadosMapaPorCategoria("").subscribe(
+        data => {
+          loader.dismiss();
+          this.modulo.setCategorias(data);
+          this.modulo.setMarkers(data);
+
+          if (this.map != undefined) {
+            this.map.destroy();
+          }
+          this.loadMap();
+        }, error => {
+          loader.dismiss();
+          console.log(error);
+        }
+      );
+
+      }).catch((error) => {
+        console.log('Error getting location', error);
+        this.modulo.toastMiddleLong("Erro: O App não conseguiu acesso ao recurso de localização do aparelho, reinicie o App e permita o acesso a localização");
+      });
+    }
   }
 
 }

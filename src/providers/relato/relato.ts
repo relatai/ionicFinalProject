@@ -3,7 +3,9 @@ import { Injectable } from '@angular/core';
 
 @Injectable()
 export class RelatoProvider {
+  id_relato: string;
   relato = [];
+  dadosVoto = [];
   id_categoria: string;
 
   constructor(public http: HttpClient) {
@@ -23,5 +25,11 @@ export class RelatoProvider {
   deletarRelato(idRelato){
     return this.http.delete('https://api-relatai.herokuapp.com/relatos/'+idRelato+'/selecionados'
     );
+  }
+  votar(){
+    return this.http.post(
+      'https://api-relatai.herokuapp.com/relatos/'+this.id_relato+'/validacoes',
+      this.dadosVoto,{headers: {'Content-Type': 'application/json'}
+    });
   }
 }
