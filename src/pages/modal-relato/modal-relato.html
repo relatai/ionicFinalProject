@@ -31,15 +31,15 @@
 
     <ion-row>
       <ion-col>
-        <button ion-button icon-left clear small>
+        <button ion-button icon-left round small (click)="votarConfirmando()">
           <ion-icon name="thumbs-up"></ion-icon>
-          <div>{{relato.confirmado}}</div>
+          <div>{{like}}</div>
         </button>
       </ion-col>
       <ion-col>
-        <button ion-button icon-left clear small>
+        <button ion-button icon-left round small (click)="votarDenunciando()">
           <ion-icon name="thumbs-down"></ion-icon>
-          <div>{{relato.denunciado}}</div>
+          <div>{{deslike}}</div>
         </button>
       </ion-col>
       <ion-col center text-center>
